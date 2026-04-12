@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void push(int val, int* nunjuk) {
-    char* target = (char*)nunjuk; 
+void push(int val, int** src) {
+    char* target = (char*)*src; 
     char* nilai = (char*)&val;
 
     for (int i = 0; i < 4; i++) {
@@ -11,7 +11,7 @@ void push(int val, int* nunjuk) {
         nilai++;
     }
 
-    (*nunjuk)++;
+    (*src)++;
 }
 
 int main() {
@@ -20,9 +20,8 @@ int main() {
     int* akhir = nunjuk + 2; 
 
     printf("Alamat: %d\n", (void*)nunjuk);
-    push(4, nunjuk);
+    push(400, &nunjuk);
     printf("Alamat: %d\n", (void*)nunjuk);
 
-    free(nunjuk); // Jangan lupa di-free ya
     return 0;
 }
