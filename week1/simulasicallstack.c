@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 void pop(int** src, int* akhir, int* awal){
+
     if((char *)akhir - (char *)*src == 1){
         char** val = (char*)src; 
         (*val)-=3;
@@ -79,6 +80,7 @@ int main() {
     pop(&nunjuk,akhir,awal);
     printf("current : %d \n", nunjuk);
     show(awal, akhir);
+
 
     return 0;
 }
