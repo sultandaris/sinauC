@@ -76,11 +76,9 @@ int main() {
     printf("current : %d \n", nunjuk);
     show(awal, akhir);
 
-
     pop(&nunjuk,akhir,awal);
     printf("current : %d \n", nunjuk);
     show(awal, akhir);
-
 
     return 0;
 }
