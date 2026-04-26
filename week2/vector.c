@@ -30,14 +30,7 @@ void vpop(struct vector *temp){
     }
 }
 
-void vpush(struct vector *temp, int val){
-    if(((temp->current)+1) > temp->max){
-        printf("tidak bisa push lagi, memori akan di resize\n");
-        vresize(&temp->current);
-        vpush(&temp, val);
-        return;
-    }
-
+void process(vector *temp, int val){
     char* target = (char*)temp->current; 
     char* nilai = (char*)&val;
     int i = 0;
@@ -46,6 +39,17 @@ void vpush(struct vector *temp, int val){
         target++;
         nilai++;
     }
+}
+
+void vpush(struct vector *temp, int val){
+    if(((temp->current)+1) > temp->max){
+        printf("tidak bisa push lagi, memori akan di resize\n");
+        vresize(temp);
+        process(temp, val);
+        return;
+    }
+
+   process(temp, val);
 
     if(((temp->current)+1) == temp->max){
         char* val = (char*)(&temp->current); 
@@ -56,16 +60,16 @@ void vpush(struct vector *temp, int val){
 };
 
 void vresize(vector *x){
-    int offset = (char *)x->current - (char *)x->min;
+    int *offset = (char *)x->current - (char *)x->min;
     int *baru = realloc(x->min, 2*(x->size) * sizeof(int));  
     
-    printf("%d %d %d--- \n", x->current, x->max, x->min);
+    printf("%d %d %d %d--- \n", x->current, x->max, x->min, offset);
 
     x->size *= 2;
-    x->current = x->min;
+    x->current = (int) x->min + (int) offset + 1;
     x->min = baru;
     x->max = x->min + x->size;
-    
+
     printf("%d %d %d--- \n", x->current, x->max, x->min);
 }
 
@@ -90,7 +94,9 @@ int main(){
     vpush(&v,20);
     show(v);
 
-    vpush(&v,30);
+    vpush(&v,50);
+    vpush(&v,50);
+    vpush(&v, 350);
     show(v);
 
     return 0;
