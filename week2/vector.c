@@ -39,24 +39,26 @@ void process(vector *temp, int val){
         target++;
         nilai++;
     }
-}
-
-void vpush(struct vector *temp, int val){
-    if(((temp->current)+1) > temp->max){
-        printf("tidak bisa push lagi, memori akan di resize\n");
-        vresize(temp);
-        process(temp, val);
-        return;
-    }
-
-   process(temp, val);
-
+    
     if(((temp->current)+1) == temp->max){
         char* val = (char*)(&temp->current); 
         (*val)+=3;
     }else{
         ((temp->current))++;
     }
+}
+
+void vpush(struct vector *temp, int val){
+    if(((temp->current)+1) > temp->max){
+        printf("tidak bisa push lagi, memori akan di resize\n");
+        printf("lawas %d -- \n", temp->current);
+        vresize(temp);
+        printf("anyar %d --- \n", temp->current);
+        process(temp, val);
+        return;
+    }
+
+   process(temp, val);
 };
 
 void vresize(vector *x){
@@ -95,8 +97,7 @@ int main(){
     show(v);
 
     vpush(&v,50);
-    vpush(&v,50);
-    vpush(&v, 350);
+    vpush(&v,530);
     show(v);
 
     return 0;
